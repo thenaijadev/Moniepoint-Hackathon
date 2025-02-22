@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:monieshop/file_reader.dart';
+import 'package:monieshop/providers/file_reader.dart';
+import 'package:monieshop/widgets/info_snackbar.dart';
+import 'package:monieshop/widgets/text_widget.dart';
 
 class Sal4sAnalisisScreen extends StatefulWidget {
   const Sal4sAnalisisScreen({super.key});
@@ -26,9 +28,8 @@ class _Sal4sAnalisisScreenState extends State<Sal4sAnalisisScreen> {
         });
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error processing files: ${e.toString()}')),
-      );
+      InfoSnackBar.showErrorSnackBar(
+          context, 'Error processing files: ${e.toString()}');
     } finally {
       setState(() {
         isLoading = false;
@@ -51,7 +52,8 @@ class _Sal4sAnalisisScreenState extends State<Sal4sAnalisisScreen> {
             ElevatedButton.icon(
               onPressed: isLoading ? null : pickAndAnalizeFiles,
               icon: const Icon(Icons.upload_file),
-              label: Text(isLoading ? 'Processing...' : 'Upload Sales Data'),
+              label: TextWidget(
+                  text: isLoading ? 'Processing...' : 'Upload Sales Data'),
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 16),
               ),
@@ -146,9 +148,8 @@ class _Sal4sAnalisisScreenState extends State<Sal4sAnalisisScreen> {
             const SizedBox(height: 12),
             ...details.map((detail) => Padding(
                   padding: const EdgeInsets.only(bottom: 4),
-                  child: Text(
-                    detail,
-                    style: const TextStyle(fontSize: 16),
+                  child: TextWidget(
+                    text: detail,
                   ),
                 )),
           ],

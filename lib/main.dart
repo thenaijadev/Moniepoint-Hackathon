@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:monieshop/sales_screen.dart';
+import 'package:monieshop/screens/sales_screen.dart';
 
 void main() {
   runApp(const MyApp());

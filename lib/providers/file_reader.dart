@@ -75,7 +75,6 @@ class FileReader {
     Map<String, int> productSalesVolume = {};
     Map<String, Map<String, double>> staffSalesPerMonth = {};
 
-    // Changed: Track transactions per hour per day
     Map<int, Map<String, int>> hourlyTransactions = {};
     Map<int, int> totalHourlyTransactions = {};
     Set<String> uniqueDays = {};
@@ -99,12 +98,10 @@ class FileReader {
             '${dateTime.year}-${dateTime.month.toString().padLeft(2, '0')}';
         int hour = dateTime.hour;
 
-        // Update daily metrics
         dayVolume +=
             products.fold(0, (sum, product) => sum + product['quantity']!);
         dayValue += saleAmount;
 
-        // Update product volumes
         for (var product in products) {
           int productId = product['productId']!;
           int quantity = product['quantity']!;
@@ -112,13 +109,11 @@ class FileReader {
               (productSalesVolume[productId.toString()] ?? 0) + quantity;
         }
 
-        // Update staff monthly sales
         staffSalesPerMonth.putIfAbsent(monthKey, () => {});
         staffSalesPerMonth[monthKey]![staffId.toString()] =
             (staffSalesPerMonth[monthKey]![staffId.toString()] ?? 0) +
                 saleAmount;
 
-        // Update hourly transactions
         hourlyTransactions.putIfAbsent(hour, () => {});
         hourlyTransactions[hour]![day] =
             (hourlyTransactions[hour]![day] ?? 0) + 1;
@@ -146,7 +141,6 @@ class FileReader {
       topStaffPerMonth[monthEntry.key] = topStaffEntry.key;
     }
 
-    // Calculate true hourly averages
     Map<int, double> hourlyAverages = {};
     int numberOfDays = uniqueDays.length;
     for (var hour in totalHourlyTransactions.keys) {
