@@ -4,13 +4,14 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This is the repository to the Moniepoint DreamDevs Hackathon question.
 
-A few resources to get you started if this is your first Flutter project:
+This project SHOULD be run as Flutter web project.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+The test cases should be downloaded on your local machine.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Once you run the application locally on chrome, you can then select all the txt files for the year and then wait for the application to run the analysis.
+
+Once the analysis is complete, the results would be displayed nicely as per the requirements of the application.
+
+Thank you Moniepoint for this opportunity and I look forword to working at moniepoint.
