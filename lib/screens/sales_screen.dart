@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:monieshop/providers/file_reader.dart';
+import 'package:monieshop/screens/metric_card_widget.dart';
+import 'package:monieshop/screens/top_staff_card_widget.dart';
 import 'package:monieshop/widgets/info_snackbar.dart';
 import 'package:monieshop/widgets/text_widget.dart';
 
@@ -66,47 +68,49 @@ class _Sal4sAnalisisScreenState extends State<Sal4sAnalisisScreen> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      _buildMetricCard(
-                        'Highest Volume Day',
-                        Icon(Icons.bar_chart,
+                      MetricCardWidget(
+                        title: 'Highest Volume Day',
+                        icon: Icon(Icons.bar_chart,
                             size: 32, color: Colors.blue[700]),
-                        [
+                        details: [
                           'Date: ${analysisResults!['highestVolumeDay']['date']}',
                           'Volume: ${analysisResults!['highestVolumeDay']['volume']} units',
                         ],
                       ),
                       const SizedBox(height: 16),
-                      _buildMetricCard(
-                        'Highest Value Day',
-                        Icon(Icons.attach_money,
+                      MetricCardWidget(
+                        title: 'Highest Value Day',
+                        icon: Icon(Icons.attach_money,
                             size: 32, color: Colors.green[700]),
-                        [
+                        details: [
                           'Date: ${analysisResults!['highestValueDay']['date']}',
                           'Value: \$${NumberFormat('#,##0.00').format(analysisResults!['highestValueDay']['value'])}',
                         ],
                       ),
                       const SizedBox(height: 16),
-                      _buildMetricCard(
-                        'Most Sold Product',
-                        Icon(Icons.shopping_cart,
+                      MetricCardWidget(
+                        title: 'Most Sold Product',
+                        icon: Icon(Icons.shopping_cart,
                             size: 32, color: Colors.orange[700]),
-                        [
+                        details: [
                           'Product ID: ${analysisResults!['mostSoldProduct']['productId']}',
                           'Volume: ${analysisResults!['mostSoldProduct']['volume']} units',
                         ],
                       ),
                       const SizedBox(height: 16),
-                      _buildMetricCard(
-                        'Busiest Hour',
-                        Icon(Icons.access_time,
+                      MetricCardWidget(
+                        title: 'Busiest Hour',
+                        icon: Icon(Icons.access_time,
                             size: 32, color: Colors.purple[700]),
-                        [
+                        details: [
                           'Hour: ${analysisResults!['busiestHour']['hour']}:00',
                           'Average Transactions: ${analysisResults!['busiestHour']['averageTransactions'].toStringAsFixed(2)}',
                         ],
                       ),
                       const SizedBox(height: 16),
-                      _buildTopStaffCard(analysisResults!['topStaffPerMonth']),
+                      TopStaffCardWidget(
+                          topStaffPerMonth:
+                              analysisResults!['topStaffPerMonth']),
                     ],
                   ),
                 ),
@@ -118,77 +122,6 @@ class _Sal4sAnalisisScreenState extends State<Sal4sAnalisisScreen> {
                   style: TextStyle(fontSize: 16, color: Colors.grey),
                 ),
               ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildMetricCard(String title, Icon icon, List<String> details) {
-    return Card(
-      elevation: 2,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                icon,
-                const SizedBox(width: 12),
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            ...details.map((detail) => Padding(
-                  padding: const EdgeInsets.only(bottom: 4),
-                  child: TextWidget(
-                    text: detail,
-                  ),
-                )),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildTopStaffCard(Map<String, String> topStaffPerMonth) {
-    return Card(
-      elevation: 2,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Icon(Icons.person, size: 32, color: Colors.red[700]),
-                const SizedBox(width: 12),
-                const Text(
-                  'Top Performing Staff',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            ...topStaffPerMonth.entries.map(
-              (entry) => Padding(
-                padding: const EdgeInsets.only(bottom: 4),
-                child: Text(
-                  '${entry.key}: Staff #${entry.value}',
-                  style: const TextStyle(fontSize: 16),
-                ),
-              ),
-            ),
           ],
         ),
       ),
